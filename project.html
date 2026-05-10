@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacdia & Sabrin Portfolio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #ffffff; overflow-x: hidden; }
+
+        /* Navigation */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 10%; position: fixed; width: 100%; top: 0;
+            background: white; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo { font-size: 26px; font-weight: 800; color: #4b0082; text-decoration: none; }
+        .logo span { color: #ff007f; }
+        
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { text-decoration: none; color: #444; font-size: 14px; font-weight: 600; transition: 0.3s; }
+        nav ul li a:hover { color: #ff007f; }
+        
+        .hire-me { background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; }
+
+        /* Hero Section */
+        .hero { display: flex; justify-content: space-between; align-items: center; padding: 180px 10% 100px; gap: 40px; }
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 55px; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text span { color: #6a11cb; }
+        .hero-text h2 { font-size: 24px; color: #555; margin-bottom: 30px; }
+        .hero-img { flex: 1; text-align: right; }
+        .hero-img img { width: 100%; max-width: 400px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        /* About Section */
+        .about-wrapper { padding: 80px 10%; display: flex; align-items: center; gap: 60px; }
+        .about-info { flex: 1.5; text-align: left; }
+        .about-info h2 { font-size: 32px; color: #4b0082; margin-bottom: 25px; font-weight: bold; }
+        .about-info p { color: #555; line-height: 1.8; font-size: 16px; margin-bottom: 35px; }
+        .btn-gradient { background: linear-gradient(45deg, #6a11cb, #ff007f); color: white; padding: 14px 30px; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; text-transform: uppercase; }
+        .v-line { width: 1px; height: 220px; background-color: #f0f0f0; }
+        .about-stats { flex: 1.5; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .stat-card { border: 1px solid #f3f0ff; background-color: #fafaff; padding: 35px 20px; text-align: center; transition: 0.3s ease; }
+        .stat-card:hover { box-shadow: 0 10px 25px rgba(106, 17, 203, 0.1); transform: translateY(-5px); border-color: #6a11cb; }
+        .stat-card h3 { font-size: 28px; color: #4b0082; margin-bottom: 8px; }
+        .stat-card span { font-size: 12px; color: #777; text-transform: uppercase; letter-spacing: 1px; display: block; }
+
+        /* Services Section */
+        .services-section { padding: 100px 10%; background-color: #f9f9ff; text-align: center; }
+        .services-section h2 { font-size: 36px; color: #4b0082; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; }
+        .top-desc { color: #777; max-width: 650px; margin: 0 auto 60px; line-height: 1.8; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
+        .service-card { padding: 45px 30px; background: #fff; border: 1px solid #f0f0ff; border-radius: 15px; transition: 0.3s; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+        .service-icon { font-size: 45px; margin-bottom: 25px; display: inline-block; background: linear-gradient(45deg, #6a11cb, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Portfolio Section */
+        .portfolio-container { padding: 100px 10%; text-align: center; }
+        .main-title { font-size: 36px; font-weight: 800; color: #2c3e50; text-transform: uppercase; }
+        .underline { width: 50px; height: 3px; background-color: #ff007f; margin: 10px auto 40px; }
+        .filter-menu { margin-bottom: 50px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .filter-item { font-size: 14px; font-weight: 700; color: #888; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .filter-item.active { color: #ff007f; border-bottom: 2px solid #ff007f; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .portfolio-card { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .portfolio-card img { width: 100%; height: 280px; object-fit: cover; display: block; }
+        .label { position: absolute; top: 15px; left: 15px; background: white; padding: 5px 12px; font-size: 11px; font-weight: bold; border-radius: 4px; z-index: 5; }
+
+        /* Team Section */
+        #team { padding: 100px 10%; text-align: center; background: #fff; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 800px; margin: 0 auto; }
+        .member img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
+
+        /* Testimony Section */
+        #testimony { padding: 100px 10%; text-align: center; background: #fdfdfd; }
+        .testimonial-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        .test-card { background: #fff; padding: 40px; border-radius: 12px; border: 1px solid #f0f0f0; max-width: 450px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .client-img { width: 70px; height: 70px; border-radius: 50%; margin-bottom: 20px; object-fit: cover; }
+
+        /* Contact Section */
+        #contact { padding: 100px 10%; background-color: #fdfaf7; }
+        .contact-container { display: flex; background: #ffffff; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+        .contact-img { flex: 1; background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071') center/cover; }
+        .contact-form { flex: 1; padding: 60px; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 18px; margin-bottom: 20px; border: none; border-bottom: 2px solid #eee; background: #fcfcfc; border-radius: 8px; }
+        .send-message-btn { background: #000; color: #fff; padding: 18px; border-radius: 50px; width: 100%; cursor: pointer; font-weight: bold; border: none; }
+
+        /* Footer */
+        footer { background: #0a0a1a; color: white; padding: 80px 10% 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h3 { font-size: 18px; margin-bottom: 20px; border-left: 3px solid #ff007f; padding-left: 10px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #aaa; text-decoration: none; font-size: 14px; }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            header { padding: 15px 5%; }
+            nav { display: none; } /* Mobile Menu can be added later */
+            .hero { flex-direction: column-reverse; text-align: center; padding: 120px 5% 60px; }
+            .hero-text h1 { font-size: 38px; }
+            .hero-img { text-align: center; }
+            .about-wrapper { flex-direction: column; padding: 60px 5%; }
+            .v-line { display: none; }
+            .contact-container { flex-direction: column; }
+            .contact-img { height: 300px; }
+            .contact-form { padding: 40px 20px; }
+        }
+
+        @media (max-width: 600px) {
+            .about-stats { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 30px; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Mute<span>coder</span></a>
+        <nav>
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#portfolio">PORTFOLIO</a></li>
+                <li><a href="#testimony">TESTIMONY</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+        <button class="hire-me">HIRE ME</button>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Hello, my name's<br> <span>Sacdia and Sabrin.</span></h1>
+            <h2>We are web developers.</h2>
+            <button class="hire-me" style="padding: 15px 40px;">CONTACT ME</button>
+        </div>
+        <div class="hero-img">
+            <img src="sabriin sacdia.jpeg" alt="Profile">
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-wrapper">
+            <div class="about-info">
+                <h2>ABOUT US</h2>
+                <p>
+                    We are a dedicated team of web developers focused on building 
+                    high-quality digital experiences. Our goal is to help businesses 
+                    grow through modern technology and creative design.
+                </p>
+                <div class="about-actions">
+                    <button class="btn-gradient">LEARN MORE</button>
+                </div>
+            </div>
+
+            <div class="v-line"></div>
+
+            <div class="about-stats">
+                <div class="stat-card"><h3>150+</h3><span>Completed Projects</span></div>
+                <div class="stat-card"><h3>40+</h3><span>Ongoing Projects</span></div>
+                <div class="stat-card"><h3>120+</h3><span>Happy Clients</span></div>
+                <div class="stat-card"><h3>12</h3><span>Professional Experts</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="services-section">
+            <h2>Our Services</h2>
+            <p class="top-desc">We provide cutting-edge solutions built with the latest technologies to ensure your business stands out.</p>
+            <div class="services-grid">
+                <div class="service-card"><span class="service-icon">🌐</span><h3>Web Design</h3><p>Beautiful interfaces that reflect your brand identity.</p></div>
+                <div class="service-card"><span class="service-icon">💻</span><h3>Development</h3><p>Robust systems using modern HTML, CSS, and JS.</p></div>
+                <div class="service-card"><span class="service-icon">📱</span><h3>App Solutions</h3><p>Fully responsive designs for all mobile devices.</p></div>
+            </div>
+            <button class="hire-me" style="padding: 15px 40px;">Explore More</button>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio-container">
+        <h2 class="main-title">PORTFOLIO</h2>
+        <div class="underline"></div>
+
+        <div class="filter-menu">
+            <span class="filter-item active" data-filter="all">ALL</span>
+            <span class="filter-item" data-filter="tech">TECHNOLOGY</span>
+            <span class="filter-item" data-filter="prog">PROGRAMMING</span>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-card prog">
+                <div class="label">Link</div>
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072" alt="Coding">
+            </div>
+            <div class="portfolio-card tech">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070" alt="Hardware">
+            </div>
+            <div class="portfolio-card prog">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070" alt="Code Script">
+            </div>
+            <div class="portfolio-card tech">
+                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070" alt="Robot">
+            </div>
+            <div class="portfolio-card prog">
+                <div class="label">Link</div>
+                <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=1931" alt="Setup">
+            </div>
+            <div class="portfolio-card tech">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070" alt="Cybersecurity">
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <h2 style="font-size: 32px; color: #4b0082; margin-bottom: 40px;">Teamwork</h2>
+        <div class="team-grid">
+            <div class="member"><img src="sacdiyooo.jpeg" alt="Sacdia"><h4>Sacdia</h4></div>
+            <div class="member"><img src="sss.jpeg" alt="Sabrin"><h4>Sabrin</h4></div>
+        </div>
+    </section>
+
+    <section id="testimony">
+        <style>
+            #testimony { 
+                padding: 100px 10%; 
+                text-align: center; 
+            }
+            #testimony h2 {
+                font-size: 32px;
+                color: #4b0082;
+                margin-bottom: 40px;
+                text-transform: uppercase;
+            }
+            .testimonial-container { 
+                display: flex; 
+                gap: 30px; 
+                justify-content: center; 
+                flex-wrap: wrap; 
+            }
+            .test-card { 
+                background: #fff; 
+                padding: 40px; 
+                border-radius: 12px; 
+                border: 1px solid #f0f0f0; 
+                flex: 1; 
+                min-width: 300px; /* Si uu mobile-ka ugu jabo */
+                max-width: 450px; 
+                transition: 0.3s;
+            }
+            .test-card:hover {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            }
+            .client-img { 
+                width: 70px; 
+                height: 70px; 
+                border-radius: 50%; 
+                margin-bottom: 20px; 
+                object-fit: cover; 
+            }
+            .test-card h4 {
+                margin-bottom: 10px;
+                color: #333;
+            }
+            .test-card p {
+                color: #666;
+                font-style: italic;
+                line-height: 1.6;
+            }
+
+            /* Responsive fix for mobile */
+            @media (max-width: 768px) {
+                #testimony { padding: 60px 5%; }
+                .test-card { min-width: 100%; }
+            }
+        </style>
+
+        <h2>Testimonials</h2>
+        <div class="testimonial-container">
+            <div class="test-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150" alt="Client" class="client-img">
+                <h4>Irene Strong</h4>
+                <p>"Working with this team was a game-changer for our business."</p>
+            </div>
+            <div class="test-card">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150" alt="Client" class="client-img">
+                <h4>Jonas Kakaroto</h4>
+                <p>"Professional, creative, and highly skilled developers."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-img"></div>
+            <div class="contact-form">
+                <h2>Let's talk about <br>your project</h2>
+                <input type="text" placeholder="Full Name">
+                <input type="email" placeholder="Your E-mail">
+                <textarea rows="4" placeholder="How can we help you?"></textarea>
+                <button class="send-message-btn">Send Message</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">Mute<span>coder</span></div>
+                <p style="color: #aaa; font-size: 14px; margin-top: 15px;">Building the digital future with passion and code.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p style="color: #aaa; font-size: 14px;">Mogadishu, Somalia<br>info@mutecoder.com</p>
+            </div>
+        </div>
+        <div style="text-align: center; padding-top: 30px; border-top: 1px solid #222; color: #777; font-size: 13px;">
+            &copy; 2026 Sacdia and Sabrin. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        const filterItems = document.querySelectorAll('.filter-item');
+        const cards = document.querySelectorAll('.portfolio-card');
+
+        filterItems.forEach(item => {
+            item.addEventListener('click', () => {
+                filterItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                const filterValue = item.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    if (filterValue === 'all' || card.classList.contains(filterValue)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
